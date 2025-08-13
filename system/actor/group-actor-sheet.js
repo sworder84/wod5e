@@ -77,6 +77,17 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(foundry.applicat
     return controls
   }
 
+  async minimize () {
+    this.#storedWidth = this.position.width
+    await super.minimize()
+    this.setPosition({ width: 300 })
+  }
+
+  async maximize () {
+    await super.maximize()
+    if (this.#storedWidth) this.setPosition({ width: this.#storedWidth })
+  }
+
   static PARTS = {
     header: {
       template: 'systems/vtm5e/display/shared/actors/group-sheet.hbs'
@@ -433,6 +444,8 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(foundry.applicat
   }
 
   #dragDrop
+
+  #storedWidth
 
   _canDragStart () {
     return this.isEditable

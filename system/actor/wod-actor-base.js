@@ -92,6 +92,17 @@ export class WoDActor extends HandlebarsApplicationMixin(foundry.applications.sh
     return controls
   }
 
+  async minimize () {
+    this.#storedWidth = this.position.width
+    await super.minimize()
+    this.setPosition({ width: 300 })
+  }
+
+  async maximize () {
+    await super.maximize()
+    if (this.#storedWidth) this.setPosition({ width: this.#storedWidth })
+  }
+
   tabGroups = {
     primary: 'stats'
   }
@@ -402,6 +413,8 @@ export class WoDActor extends HandlebarsApplicationMixin(foundry.applications.sh
   }
 
   #dragDrop
+
+  #storedWidth
 
   _canDragStart () {
     return this.isEditable
