@@ -27,6 +27,7 @@ export default defineConfig([
         setTimeout: 'readonly',
         require: 'readonly',
         __dirname: 'readonly',
+        global: 'readonly',
 
         // Foundry globals
         CONST: 'readonly',
